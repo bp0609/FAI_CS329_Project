@@ -1,11 +1,11 @@
 import NumBox from "./NumBox";
 
-export default function NumRow({ startNum }: { startNum: number }) {
+export default function NumRow({ startNum, id }: { startNum: number, id: string }) {
     return (
-        <div className="row m-0 py-1">
-            <NumBox number={startNum} />
-            <NumBox number={startNum + 1} />
-            <NumBox number={startNum + 2} />
+        <div className="row m-0 py-1" id={id}>
+            <NumBox id={`${id}-1`} number={startNum} />
+            <NumBox id={`${id}-2`} number={startNum + 1} />
+            <NumBox id={`${id}-3`} number={startNum + 2} />
         </div>
     )
 }

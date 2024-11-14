@@ -43,12 +43,10 @@ function App() {
       <Router>
         <Navbar title="FAI-App" mode={mode} toggleMode={toggleMode} />
         <Alert alert={alert} />
-        <div className="container my-3">
-          <Routes>
-            <Route path="/" element={<Home showAlert={showAlert} />} />
-            <Route path="/about" element={<About showAlert={showAlert} />} />
-          </Routes>
-        </div>
+        <Routes>
+          <Route path="/" element={<Home showAlert={showAlert} />} />
+          <Route path="/about" element={<About showAlert={showAlert} />} />
+        </Routes>
       </Router>
     </>
   );

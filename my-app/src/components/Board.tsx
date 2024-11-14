@@ -10,7 +10,7 @@ export default function Board({ showAlert }: BoardProps) {
         for (let i = 0; i < 9; i++) {
             const cells = [];
             for (let j = 0; j < 9; j++) {
-                cells.push(<td key={j}><Square /></td>);
+                cells.push(<td key={j}><Square id={`sq-${i}-${j}`} /></td>);
             }
             rows.push(<tr key={i}>{cells}</tr>);
         }
@@ -18,7 +18,7 @@ export default function Board({ showAlert }: BoardProps) {
     };
 
     return (
-        <div className="container">
+        <div className="container" style={{ width: "100%", overflow: 'auto' }}>
             <table className="table table-bordered">
                 <tbody>
                     {renderTable()}
