@@ -5,7 +5,7 @@ export default function NumBox({ id, number }: { id: string, number: number }) {
 
     const ApplyConstraintSatisfaction = (id: string) => {
         /*
-            id is in the format 'sq-row-col-brow-bcol'
+            id ->'sq-row-col-brow-bcol'
             row: 0 - 8
             col: 0 - 8
             brow: 1 - 3
