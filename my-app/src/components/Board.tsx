@@ -14,7 +14,7 @@ export default function Board() {
     };
 
     return (
-        <div className="container" style={{ width: "100%", overflow: 'auto' }}>
+        <div className="container p-0" style={{ width: "100vw", overflow: 'auto' }}>
             <table className="table table-bordered" style={{ border: '2px solid' }}>
                 <tbody>
                     {renderTable()}

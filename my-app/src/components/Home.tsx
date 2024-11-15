@@ -5,12 +5,12 @@ interface HomeProps {
 
 export default function Home({ showAlert }: HomeProps) {
     return (
-        <div className="container">
+        <>
             <h1 className='text-center'>
                 FAI-App
             </h1>
-            <Board showAlert={showAlert} />
+            <Board />
             <button className='btn btn-primary' onClick={() => showAlert('This is a message', 'success')}>Show Alert</button>
-        </div>
+        </>
     )
 }
