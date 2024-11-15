@@ -1,10 +1,6 @@
 import Square from './Square';
 
-interface BoardProps {
-    showAlert: (message: string, type: string) => void | null;
-}
-
-export default function Board({ showAlert }: BoardProps) {
+export default function Board() {
     const renderTable = () => {
         const rows = [];
         for (let i = 0; i < 9; i++) {
@@ -19,7 +15,7 @@ export default function Board({ showAlert }: BoardProps) {
 
     return (
         <div className="container" style={{ width: "100%", overflow: 'auto' }}>
-            <table className="table table-bordered">
+            <table className="table table-bordered" style={{ border: '2px solid' }}>
                 <tbody>
                     {renderTable()}
                 </tbody>
