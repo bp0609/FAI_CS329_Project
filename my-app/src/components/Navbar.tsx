@@ -8,7 +8,7 @@ interface NavbarProps {
 
 export default function Navbar({ title = 'NavBar', mode = 'light', toggleMode }: NavbarProps) {
   return (
-    <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`} style={{ width: '100%', top: '0px'}}>
+    <nav className={`navbar navbar-expand-lg navbar-${mode} bg-${mode}`} style={{ position: 'sticky', width: '100%', top: '0', zIndex: '100' }}>
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">{title}</Link>
         <button
