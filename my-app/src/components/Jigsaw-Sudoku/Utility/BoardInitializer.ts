@@ -1,7 +1,7 @@
 type Board = number[][];
 type Island = number[][];
 
-export default function generateInitialJigsawBoard(island: Island, filledPercentage: number = 0.05): Board {
+export default function generateInitialJigsawBoard(island: Island, filledPercentage: number = 0.05) {
     const size = 9;
     const totalCells = size * size;
     const numToFill = Math.floor(filledPercentage * totalCells);
@@ -20,12 +20,15 @@ export default function generateInitialJigsawBoard(island: Island, filledPercent
         }
     }
 
-    let puzzleBoard: Board = Array.from({ length: size }, () => Array(size).fill(0));
+    let ret_array = <string[]>([]);
     filledPositions.forEach(([row, col]) => {
-        puzzleBoard[row][col] = board[row][col];
+        const num = board[row][col];
+        const btnRow = Math.floor((num - 1) / 3);
+        const btnCol = Math.floor((num - 1) % 3);
+        ret_array.push(`sq-${row}-${col}-${btnRow}-${btnCol}`);
     });
 
-    return puzzleBoard;
+    return ret_array;
 }
 
 // Helper function to check if a number can be placed at a position

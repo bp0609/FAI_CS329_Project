@@ -12,10 +12,9 @@ export default function NumBox({ id, number, selectedBtns, setSelectedBtns }: { 
     return (
         <div className="col-4 text-center m-0 p-0" id={id}>
             <button
-                className={`tbl-btn btn btn-secondary p-1`}
+                className={`tbl-btn btn p-1`}
                 onClick={handleOnClick}
                 style={{ width: '2rem', height: '2rem', textAlign: "center" }}
-            // disabled={isDisabled}
             >
                 {number}
             </button>
