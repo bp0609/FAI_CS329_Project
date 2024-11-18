@@ -10,7 +10,7 @@ export default function NumBox({ id, number, selectedBtns, setSelectedBtns }: { 
     }
 
     return (
-        <div className="col-4 text-center m-0 p-0" id={id}>
+        <div className="col-4 text-center m-0 p-0" id={id} style={{ justifyItems: "center" }}>
             <button
                 className={`tbl-btn btn p-1`}
                 onClick={handleOnClick}

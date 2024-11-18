@@ -15,7 +15,6 @@ export default function Board() {
 
 
     const colorIslands = (boardNum: number) => {
-        // extra light color palette
         const colorPalette = ["#C8E6C9", "#90CAF9", "#CE93D8", "#F48FB1", "#FFCC80", "#FFF176", "#E0E0E0", "#80DEEA", "#FFAB91"];
         const islandLoc = predefinedBoards[boardNum].island_loc;
 
@@ -27,8 +26,6 @@ export default function Board() {
             });
         }
     }
-
-
 
 
     useEffect(() => {
@@ -64,7 +61,7 @@ export default function Board() {
     }, [initializedBtns]);
 
     const showOnlyOne = () => {
-        // On deselecting a button, show the default state of the square
+        // Reset all squares
         const squares = document.getElementsByClassName('sqre');
         for (let i = 0; i < squares.length; i++) {
             const sqre = squares[i] as HTMLDivElement;
@@ -104,7 +101,12 @@ export default function Board() {
                         } else {
                             btn.className = 'tbl-btn btn btn-success p-1';
                         }
-                        if (btn.parentElement) btn.parentElement.style.display = 'block';
+                        if (btn.parentElement) {
+                            btn.parentElement.style.display = 'block';
+                            if (btn.parentElement.parentElement) {
+                                btn.parentElement.parentElement.style.justifyContent = 'center';
+                            }
+                        }
                         btn.style.height = '4rem';
                         btn.style.width = '4rem';
                     }
@@ -140,7 +142,7 @@ export default function Board() {
         });
 
 
-
+        // To Be Disabled Buttons
         const disabledBtns = new Set<string>();
         for (let i = 0; i < selectedBtns.length; i++) {
             // Same Row and Column
@@ -172,6 +174,7 @@ export default function Board() {
             });
         }
 
+        // CSS for disabled buttons
         const allBtns = document.getElementsByClassName('tbl-btn')
         const notSelectedBtns = Array.from(allBtns).filter(btn => !selectedBtns.includes((btn as HTMLButtonElement).parentElement?.id || ''));
         for (let i = 0; i < notSelectedBtns.length; i++) {
@@ -223,8 +226,6 @@ export default function Board() {
     const handleOnClick = () => {
         setBoardNum((boardNum + 1) % predefinedBoards.length);
         setSelectedBtns([]);
-        setInitializedBtns([]);
-        colorIslands(boardNum);
     }
 
     const resetBoard = () => {
