@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Navbar from './components/Navbar';
 import About from './components/About';
 import Home from './components/Home';
+import Board from './components/Jigsaw-Sudoku/Board';
+import NQBoard from './components/N-Queens/NQBoard';
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
@@ -44,7 +46,9 @@ function App() {
         <Navbar title="FAI-App" mode={mode} toggleMode={toggleMode} />
         <Alert alert={alert} />
         <Routes>
-          <Route path="/" element={<Home showAlert={showAlert} />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/NQueens" element={<NQBoard />} />
+          <Route path="/Jigsaw-Sudoku" element={<Board />} />
           <Route path="/about" element={<About showAlert={showAlert} />} />
         </Routes>
       </Router>

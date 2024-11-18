@@ -1,10 +1,10 @@
-import Board from "./Jigsaw-Sudoku/Board";
-// interface HomeProps {
-//     showAlert: (message: string, type: string) => void | null;
-// }
+import CardCont from "./CardCont"
 
 export default function Home() {
     return (
-        <Board />
+        <div className="container text-center">
+            <h1 className="my-3">Choose What You Want to Play</h1>
+            <CardCont />
+        </div>
     )
 }
