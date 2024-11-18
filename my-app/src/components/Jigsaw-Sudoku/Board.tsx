@@ -65,7 +65,26 @@ export default function Board() {
 
     const showOnlyOne = () => {
         // On deselecting a button, show the default state of the square
-        /********** TODO ************/
+        const squares = document.getElementsByClassName('sqre');
+        for (let i = 0; i < squares.length; i++) {
+            const sqre = squares[i] as HTMLDivElement;
+            sqre.style.removeProperty('display');
+            sqre.style.removeProperty('align-items');
+            sqre.style.removeProperty('justify-content');
+            const rows = sqre.getElementsByClassName('row');
+            for (let j = 0; j < rows.length; j++) {
+                const row = rows[j] as HTMLDivElement;
+                row.style.display = 'flex';
+            }
+            const insideBtns = sqre.getElementsByClassName('tbl-btn');
+            for (let k = 0; k < insideBtns.length; k++) {
+                const btn = insideBtns[k] as HTMLButtonElement;
+                btn.style.display = 'block';
+                btn.style.height = '2rem';
+                btn.style.width = '2rem';
+                if (btn.parentElement) btn.parentElement.style.display = 'block';
+            }
+        }
 
 
         selectedBtns.forEach(btnId => {
@@ -208,6 +227,10 @@ export default function Board() {
         colorIslands(boardNum);
     }
 
+    const resetBoard = () => {
+        setSelectedBtns([...initializedBtns]);
+    }
+
 
     return (
         <div className="container p-3">
@@ -216,6 +239,7 @@ export default function Board() {
                 <Dropdown options={['Very Easy', 'Easy', 'Medium', 'Hard', 'Very Hard', 'Do It Yourself']} selected={selected} setSelected={(value: string) => setSelected(value as keyof typeof diffToPer)} />
                 <div className="container">
                     <button className="btn btn-primary mx-3" onClick={handleOnClick}>New Board</button>
+                    <button className="btn btn-danger mx-3" onClick={resetBoard}>Reset Board</button>
                 </div>
             </div>
             <table className="table table-bordered" style={{ border: '3px solid black', borderCollapse: 'collapse' }}>
