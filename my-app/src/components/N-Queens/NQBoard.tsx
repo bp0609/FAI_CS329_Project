@@ -9,17 +9,98 @@ const NQBoard: React.FC = () => {
   const [showForwardConsistency, setShowForwardConsistency] = useState(false);
   const [showArcConsistency, setShowArcConsistency] = useState(false);
 
-  // Check if placing a queen is safe
   const isSafe = (board: number[][], row: number, col: number): boolean => {
-    for (let i = 0; i < row; i++) if (board[i][col] === 1) return false; // Column
-    for (let j = 0; j < col; j++) if (board[row][j] === 1) return false; // Row
-    for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
-      if (board[i][j] === 1) return false; // Upper-left diagonal
-    for (let i = row - 1, j = col + 1; i >= 0 && j < N; i--, j++)
-      if (board[i][j] === 1) return false; // Upper-right diagonal
+    // Check if the column already has a queen (we can safely skip this row if the user has placed a queen)
+    for (let i = 0; i < N; i++) {
+      if (board[i][col] === 1 && i!=row) return false; // Column check
+    }
+  
+    // Check the upper-left diagonal
+    for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
+      if (board[i][j] === 1) return false; // Upper-left diagonal check
+    }
+  
+    // Check the upper-right diagonal
+    for (let i = row - 1, j = col + 1; i >= 0 && j < N; i--, j++) {
+      if (board[i][j] === 1) return false; // Upper-right diagonal check
+    }
+
+    // Check if the bottom-left diagonal has a queen
+    for (let i = row + 1, j = col - 1; i < N && j >= 0; i++, j--) {
+      if (board[i][j] === 1) return false; // Bottom-left diagonal check
+    }
+
+    // Check if the bottom-right diagonal has a queen
+    for (let i = row + 1, j = col + 1; i < N && j < N; i++, j++) {
+      if (board[i][j] === 1) return false; // Bottom-right diagonal check
+    }
+
+
+  
+    // If a queen is already placed by the user in this cell, consider it safe
     return true;
   };
 
+  // Backtracking function to solve the N-Queens problem
+  const solveNQUtil = (board: number[][], row: number): boolean => {
+    // If all queens are placed
+    if (row === N) return true;
+  
+    // If the current row already has a queen (placed by the user), move to the next row
+    if (board[row].includes(1)) {
+      return solveNQUtil(board, row + 1); // Skip this row, move to the next row
+    }
+
+    // Try placing a queen in each column of the current row
+    for (let col = 0; col < N; col++) {;
+  
+      // Check if the current position is safe
+      if (isSafe(board, row, col)) {
+        board[row][col] = 1; // Place the queen
+  
+        // Recursively solve for the next row
+        if (solveNQUtil(board, row + 1)) return true;
+  
+        // Backtrack if placing the queen doesn't lead to a solution
+        board[row][col] = 0;
+      }
+    }
+  
+    // If no valid placement is found, return false
+    return false;
+  };
+  
+  // Function to initiate solving the N-Queens problem from the current board state
+  const solveNQ = (board: number[][]) => {
+    // Check if the current board state is already invalid (early exit)
+    for (let row = 0; row < N; row++) {
+      for (let col = 0; col < N; col++) {
+        if (board[row][col] === 1 && !isSafe(board, row, col)) {
+          alert('The user-placed queens are in an invalid configuration!');
+          return;
+        }
+      }
+    }
+  
+    // Start solving from the first empty row
+    let startRow = 0;
+    for (let row = 0; row < N; row++) {
+      if (board[row].includes(0)) {
+        startRow = row;
+        break;
+      }
+    }
+  
+    // Start solving the board from the found start row
+    if (solveNQUtil(board, startRow)) {
+      setBoard(board); // Update the board with the solution
+      setIsSolved(true);
+    } else {
+      alert('Solution does not exist for this configuration.');
+    }
+  };
+  
+  
   // Compute forward consistency (mark unsafe cells)
   const getForwardConsistency = (): boolean[][] => {
     const unsafeCells = Array(N).fill(0).map(() => Array(N).fill(false));
@@ -65,30 +146,6 @@ const NQBoard: React.FC = () => {
     setBoard(newBoard);
   };
 
-  // Solve N-Queens using backtracking
-  const solveNQUtil = (board: number[][], row: number): boolean => {
-    if (row === N) return true;
-
-    for (let col = 0; col < N; col++) {
-      if (isSafe(board, row, col)) {
-        board[row][col] = 1;
-        if (solveNQUtil(board, row + 1)) return true;
-        board[row][col] = 0; // Backtrack
-      }
-    }
-
-    return false;
-  };
-
-  const solveNQ = () => {
-    const newBoard = Array(N).fill(0).map(() => Array(N).fill(0));
-    if (solveNQUtil(newBoard, 0)) {
-      setBoard(newBoard);
-      setIsSolved(true);
-    } else {
-      alert('Solution does not exist for this size.');
-    }
-  };
 
   // Handle board size change
   const handleNChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -207,7 +264,7 @@ const NQBoard: React.FC = () => {
           }}
         />
         <button
-          onClick={solveNQ}
+          onClick={() => solveNQ(board)}
           style={{
             padding: '10px 20px',
             fontSize: '1.2rem',
