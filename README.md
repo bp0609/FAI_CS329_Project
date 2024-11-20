@@ -20,21 +20,38 @@ Welcome to the Jigsaw Sudoku and N-Queens Solver application! This web-based app
 
 - **Components**:
   - `Board`: Renders the Sudoku board and manages game logic.
-  - `Square`: Represents one of the 81 squares in the board. 
+  - `Square`: Represents one of the 81 squares in the board.
   - `Island`: Represents a single coloured region on the board
   - `NumBox`: Represents individual cells in a square.
-  
 - **Implementation**:
+
   - **Board Generation**: Boards are generated using predefined configurations in `PredefinedBoards.ts`. The `generateInitialJigsawBoard` function initializes the board, filling a percentage of cells.
-  - **Solver**: The `solveJigsawSudoku` function employs a **backtracking algorithm** to solve the puzzle, ensuring all placements follow Sudoku rules.
+
+    - **Solver**: The `solveJigsawSudoku` function employs a **backtracking algorithm** to solve the puzzle, ensuring all placements follow Sudoku rules.
+
+### 🖼️ Jigsaw Sudoku Image
+
+<p align="center">
+  <img src="images/JigsawSudoku.png" alt="Jigsaw Sudoku" width="400">
+</p>
+
+---
 
 ### 👑 N-Queens
 
 - **Component**:
+
   - `NQBoard`: Handles rendering and logic for the N-Queens board.
 
 - **Implementation**:
+
   - **Solver**: The `solveNQueens` function uses **Forward Checking** & **Arc Consistency** to place queens while ensuring no conflicts. Solutions are visualized, showing the placement of queens.
+
+- 🖼️ **N-Queens Image**
+
+  <p align="center">
+    <img src="images/NQueens.png" alt="N-Queens" width="400">
+  </p>
 
 ---
 
@@ -51,12 +68,14 @@ Welcome to the Jigsaw Sudoku and N-Queens Solver application! This web-based app
 ## 🧠 Algorithms
 
 ### Jigsaw Sudoku Solver
+
 - Utilizes a **backtracking algorithm**:
   1. Attempts to place numbers in empty cells.
   2. Ensures placements are valid according to Sudoku rules.
   3. Backtracks if a dead end is reached and tries another number.
 
 ### N-Queens Solver
+
 - Also employs a **Forward Checking** & **Arc Consistency algorithm**:
   1. Places queens row by row.
   2. Ensures no two queens threaten each other.
