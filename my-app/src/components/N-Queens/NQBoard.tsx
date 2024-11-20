@@ -10,6 +10,10 @@ const NQBoard: React.FC = () => {
   const [showArcConsistency, setShowArcConsistency] = useState(false);
 
   const isSafe = (board: number[][], row: number, col: number): boolean => {
+
+    for (let i=0; i<N; i++){
+      if (board[row][i] === 1 && i!=col) return false; // Row check
+    }
     // Check if the column already has a queen (we can safely skip this row if the user has placed a queen)
     for (let i = 0; i < N; i++) {
       if (board[i][col] === 1 && i!=row) return false; // Column check
@@ -218,6 +222,23 @@ const NQBoard: React.FC = () => {
     );
   };
 
+  const validateboard = (board: number[][]) => {
+    let totalQueens = 0;
+    for (let row = 0; row < N; row++) {
+      for (let col = 0; col < N; col++) {
+        if (board[row][col] === 1) totalQueens++;
+        if (board[row][col] === 1 && !isSafe(board, row, col)) {
+          alert('The user-placed queens are in an invalid configuration!');
+          return;
+        }
+      }
+    }
+    if (totalQueens !== N) alert('User has not placed the required number of queens!');
+    else
+    alert('The user-placed queens are in a valid configuration!');
+  }
+
+
   return (
     <div
       className="container d-flex flex-column align-items-center"
@@ -283,6 +304,27 @@ const NQBoard: React.FC = () => {
           }
         >
           Solve
+        </button>
+        <button
+          onClick={() => validateboard(board)}
+          style={{
+            padding: '10px 20px',
+            fontSize: '1.2rem',
+            borderRadius: '8px',
+            border: 'none',
+            backgroundColor: '#00c853',
+            color: 'white',
+            cursor: 'pointer',
+            transition: 'background 0.2s ease',
+          }}
+          onMouseEnter={(e) =>  
+            (e.currentTarget.style.backgroundColor = '#009624')
+          }
+          onMouseLeave={(e) =>
+            (e.currentTarget.style.backgroundColor = '#00c853')
+          }
+        >
+          Validate
         </button>
         <button
           onClick={resetBoard}
