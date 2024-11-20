@@ -24,7 +24,7 @@ function App() {
 
   return (
     <>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Navbar title="FAI-App" mode={mode} toggleMode={toggleMode} />
         <Routes>
           <Route path="/" element={<Home />} />
