@@ -27,9 +27,6 @@ export default function Navbar({ title = 'NavBar', mode = 'light', toggleMode }:
             <li className="nav-item">
               <Link className="nav-link" to="/">Home</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/about">About</Link>
-            </li>
           </ul>
           <label className="form-check-label" htmlFor="flexSwitchCheckDefault">
             {(mode === 'light') ? 'Light' : 'Dark'} mode

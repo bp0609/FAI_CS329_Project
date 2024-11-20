@@ -1,50 +1,81 @@
-# React + TypeScript + Vite
+# Jigsaw Sudoku and N-Queens Solver
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Jigsaw Sudoku and N-Queens Solver application! This web-based app allows users to play and solve two classic puzzles: **Jigsaw Sudoku** and **N-Queens**. Designed with modern web technologies, the application provides an interactive and engaging user experience.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## Expanding the ESLint configuration
+- **Jigsaw Sudoku**: Play and solve puzzles with varying difficulty levels.
+- **N-Queens**: Solve the N-Queens puzzle and visualize the solution.
+- **Dynamic Board Generation**: Boards are dynamically generated based on predefined configurations.
+- **Interactive UI**: A user-friendly and responsive interface.
+- **Victory Celebration**: Celebrate your wins with confetti and a congratulatory message.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## 📂 Code Explanation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+### 🔢 Jigsaw Sudoku
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Components**:
+  - `Board`: Renders the Sudoku board and manages game logic.
+  - `Square`: Represents one of the 81 squares in the board. 
+  - `Island`: Represents a single coloured region on the board
+  - `NumBox`: Represents individual cells in a square.
+  
+- **Implementation**:
+  - **Board Generation**: Boards are generated using predefined configurations in `PredefinedBoards.ts`. The `generateInitialJigsawBoard` function initializes the board, filling a percentage of cells.
+  - **Solver**: The `solveJigsawSudoku` function employs a **backtracking algorithm** to solve the puzzle, ensuring all placements follow Sudoku rules.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### 👑 N-Queens
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Component**:
+  - `NQBoard`: Handles rendering and logic for the N-Queens board.
+
+- **Implementation**:
+  - **Solver**: The `solveNQueens` function uses **Forward Checking** & **Arc Consistency** to place queens while ensuring no conflicts. Solutions are visualized, showing the placement of queens.
+
+---
+
+## 🛠️ Tech Stack
+
+- **React**: For building the user interface.
+- **TypeScript**: For type-safe development.
+- **Vite**: For fast development and build tooling.
+- **Bootstrap**: For styling and responsiveness.
+- **ESLint**: For code linting and quality assurance.
+
+---
+
+## 🧠 Algorithms
+
+### Jigsaw Sudoku Solver
+- Utilizes a **backtracking algorithm**:
+  1. Attempts to place numbers in empty cells.
+  2. Ensures placements are valid according to Sudoku rules.
+  3. Backtracks if a dead end is reached and tries another number.
+
+### N-Queens Solver
+- Also employs a **Forward Checking** & **Arc Consistency algorithm**:
+  1. Places queens row by row.
+  2. Ensures no two queens threaten each other.
+  3. Backtracks if a dead end is reached and tries another position.
+
+---
+
+## 🌟 Future Improvements
+
+- Add more puzzle types (e.g., Kakuro, KenKen).
+- Implement user authentication for saving progress and leaderboards.
+- Provide hints and tips to assist users.
+- Optimize for mobile devices for a seamless experience.
+- Enhance performance for faster solving times.
+
+---
+
+## 📧 Feedback and Contributions
+
+We hope you enjoy solving these classic puzzles with our application! If you have suggestions, feedback, or want to contribute, feel free to reach out. Let's make puzzling fun together!
+
+**Happy Puzzling!**
