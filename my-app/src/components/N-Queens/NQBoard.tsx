@@ -5,25 +5,24 @@ const NQBoard: React.FC = () => {
   const [board, setBoard] = useState<number[][]>(
     Array(8).fill(0).map(() => Array(8).fill(0))
   );
-  const [isSolved, setIsSolved] = useState<boolean>(false);
   const [showForwardConsistency, setShowForwardConsistency] = useState(false);
   const [showArcConsistency, setShowArcConsistency] = useState(false);
 
   const isSafe = (board: number[][], row: number, col: number): boolean => {
 
-    for (let i=0; i<N; i++){
-      if (board[row][i] === 1 && i!=col) return false; // Row check
+    for (let i = 0; i < N; i++) {
+      if (board[row][i] === 1 && i != col) return false; // Row check
     }
     // Check if the column already has a queen (we can safely skip this row if the user has placed a queen)
     for (let i = 0; i < N; i++) {
-      if (board[i][col] === 1 && i!=row) return false; // Column check
+      if (board[i][col] === 1 && i != row) return false; // Column check
     }
-  
+
     // Check the upper-left diagonal
     for (let i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--) {
       if (board[i][j] === 1) return false; // Upper-left diagonal check
     }
-  
+
     // Check the upper-right diagonal
     for (let i = row - 1, j = col + 1; i >= 0 && j < N; i--, j++) {
       if (board[i][j] === 1) return false; // Upper-right diagonal check
@@ -40,7 +39,7 @@ const NQBoard: React.FC = () => {
     }
 
 
-  
+
     // If a queen is already placed by the user in this cell, consider it safe
     return true;
   };
@@ -49,31 +48,32 @@ const NQBoard: React.FC = () => {
   const solveNQUtil = (board: number[][], row: number): boolean => {
     // If all queens are placed
     if (row === N) return true;
-  
+
     // If the current row already has a queen (placed by the user), move to the next row
     if (board[row].includes(1)) {
       return solveNQUtil(board, row + 1); // Skip this row, move to the next row
     }
 
     // Try placing a queen in each column of the current row
-    for (let col = 0; col < N; col++) {;
-  
+    for (let col = 0; col < N; col++) {
+      ;
+
       // Check if the current position is safe
       if (isSafe(board, row, col)) {
         board[row][col] = 1; // Place the queen
-  
+
         // Recursively solve for the next row
         if (solveNQUtil(board, row + 1)) return true;
-  
+
         // Backtrack if placing the queen doesn't lead to a solution
         board[row][col] = 0;
       }
     }
-  
+
     // If no valid placement is found, return false
     return false;
   };
-  
+
   // Function to initiate solving the N-Queens problem from the current board state
   const solveNQ = (board: number[][]) => {
     // Check if the current board state is already invalid (early exit)
@@ -85,7 +85,7 @@ const NQBoard: React.FC = () => {
         }
       }
     }
-  
+
     // Start solving from the first empty row
     let startRow = 0;
     for (let row = 0; row < N; row++) {
@@ -94,17 +94,16 @@ const NQBoard: React.FC = () => {
         break;
       }
     }
-  
+
     // Start solving the board from the found start row
     if (solveNQUtil(board, startRow)) {
       setBoard(board); // Update the board with the solution
-      setIsSolved(true);
     } else {
       alert('Solution does not exist for this configuration.');
     }
   };
-  
-  
+
+
   // Compute forward consistency (mark unsafe cells)
   const getForwardConsistency = (): boolean[][] => {
     const unsafeCells = Array(N).fill(0).map(() => Array(N).fill(false));
@@ -157,13 +156,11 @@ const NQBoard: React.FC = () => {
     if (value >= 1 && value <= 15) {
       setN(value);
       setBoard(Array(value).fill(0).map(() => Array(value).fill(0)));
-      setIsSolved(false);
     }
   };
 
   const resetBoard = () => {
     setBoard(Array(N).fill(0).map(() => Array(N).fill(0)));
-    setIsSolved(false);
     setShowForwardConsistency(false);
     setShowArcConsistency(false);
   };
@@ -202,12 +199,12 @@ const NQBoard: React.FC = () => {
                   cell === 1
                     ? '#00c853' // Green for queens
                     : forwardConsistency?.[i][j]
-                    ? '#f88' // Red for forward consistency
-                    : arcConsistency?.[i][j]
-                    ? '#88f' // Blue for arc consistency
-                    : (i + j) % 2 === 0
-                    ? '#eaeaea' // Light gray for regular cells
-                    : '#b0b0b0', // Dark gray for regular cells
+                      ? '#f88' // Red for forward consistency
+                      : arcConsistency?.[i][j]
+                        ? '#88f' // Blue for arc consistency
+                        : (i + j) % 2 === 0
+                          ? '#eaeaea' // Light gray for regular cells
+                          : '#b0b0b0', // Dark gray for regular cells
                 border: '1px solid #ccc',
                 cursor: 'pointer',
               }}
@@ -235,7 +232,7 @@ const NQBoard: React.FC = () => {
     }
     if (totalQueens !== N) alert('User has not placed the required number of queens!');
     else
-    alert('The user-placed queens are in a valid configuration!');
+      alert('The user-placed queens are in a valid configuration!');
   }
 
 
@@ -317,7 +314,7 @@ const NQBoard: React.FC = () => {
             cursor: 'pointer',
             transition: 'background 0.2s ease',
           }}
-          onMouseEnter={(e) =>  
+          onMouseEnter={(e) =>
             (e.currentTarget.style.backgroundColor = '#009624')
           }
           onMouseLeave={(e) =>
@@ -363,8 +360,8 @@ const NQBoard: React.FC = () => {
             (e.currentTarget.style.backgroundColor = '#0056b3')
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor =
-              showForwardConsistency ? '#00c853' : '#007BFF')
+          (e.currentTarget.style.backgroundColor =
+            showForwardConsistency ? '#00c853' : '#007BFF')
           }
         >
           Toggle Forward Consistency
@@ -385,8 +382,8 @@ const NQBoard: React.FC = () => {
             (e.currentTarget.style.backgroundColor = '#0056b3')
           }
           onMouseLeave={(e) =>
-            (e.currentTarget.style.backgroundColor =
-              showArcConsistency ? '#00c853' : '#007BFF')
+          (e.currentTarget.style.backgroundColor =
+            showArcConsistency ? '#00c853' : '#007BFF')
           }
         >
           Toggle Arc Consistency
