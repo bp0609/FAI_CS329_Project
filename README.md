@@ -4,6 +4,10 @@ Welcome to the Jigsaw Sudoku and N-Queens Solver application! This web-based app
 
 ---
 
+- YouTube Video Link: [Watch the demo](https://www.youtube.com/watch?v=UR4iZVNjXFI)
+
+---
+
 ## 🚀 Features
 
 - **Jigsaw Sudoku**: Play and solve puzzles with varying difficulty levels.
