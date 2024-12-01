@@ -4,8 +4,8 @@ Welcome to the Jigsaw Sudoku and N-Queens Solver application! This web-based app
 
 ---
 
-- YouTube Video Link: [Watch the demo](https://www.youtube.com/watch?v=UR4iZVNjXFI)
-
+- YouTube Video Link: [Watch the demo](https://www.youtube.com/watch?v=UR4iZVNjXFI) explaining the features and logic behind the implemetation.
+- Web App Link: [Solve the puzzle](https://bp0609.github.io/FAI_CS329_Project/)
 ---
 
 ## 🚀 Features
